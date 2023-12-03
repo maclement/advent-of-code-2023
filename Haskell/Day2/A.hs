@@ -4,16 +4,13 @@ import Data.List (sort)
 
 type Parser = Parsec String ()
 
-type Input = [Game]
-
 main1 :: IO ()
 main1 = readFile "./input.txt"  >>= \s -> either print (print . solve1) (parse inputP "" s)
 
 main2 :: IO ()
 main2 = readFile "./input.txt"  >>= \s -> either print (print . solve2) (parse inputP "" s)
 
-test :: IO ()
-test = readFile "./testinput.txt"  >>= \s -> either print (print . solve2) (parse inputP "" s)
+type Input = [Game]
 
 inputP :: Parser Input
 inputP = gameP `sepBy` char '\n'
@@ -57,9 +54,7 @@ violate :: Game -> Bool
 violate = any violateSet . getSets
 
 violateSet :: Set -> Bool
-violateSet s = snd (reds s) > 12
-             || snd (greens s) > 13
-             || snd (blues s) > 14
+violateSet s = snd (reds s) > 12 || snd (greens s) > 13 || snd (blues s) > 14
 
 solve2 :: Input -> Int
 solve2 = sum . map (multSet . foldr combineMax emptySet . getSets)
@@ -68,4 +63,4 @@ combineMax :: Set -> Set -> Set
 combineMax (Set r g b) (Set r' g' b') = Set (max r r') (max g g') (max b b')
 
 multSet :: Set -> Int
-multSet (Set r g b) = product (filter (/= 0) [snd r,snd g, snd b])
+multSet (Set r g b) = product (filter (/= 0) [snd r, snd g, snd b])

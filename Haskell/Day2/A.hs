@@ -62,10 +62,7 @@ violateSet s = snd (reds s) > 12
              || snd (blues s) > 14
 
 solve2 :: Input -> Int
-solve2 = sum . map (multSet . combineGame)
-
-combineGame :: Game -> Set
-combineGame (Game i s) = foldr combineMax emptySet  s
+solve2 = sum . map (multSet . foldr combineMax emptySet . getSets)
 
 combineMax :: Set -> Set -> Set
 combineMax (Set r g b) (Set r' g' b') = Set (max r r') (max g g') (max b b')

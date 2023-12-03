@@ -65,12 +65,7 @@ solve2 :: Input -> Int
 solve2 = sum . map (multSet . combineGame)
 
 combineGame :: Game -> Set
-combineGame (Game i s) = helper s
-
-helper :: [Set] -> Set
-helper (s1:s2:xs) = s1 `combineMax` helper (s2 : xs)
-helper []         = emptySet
-helper [x]        = x
+combineGame (Game i s) = foldr combineMax emptySet  s
 
 combineMax :: Set -> Set -> Set
 combineMax (Set r g b) (Set r' g' b') = Set (max r r') (max g g') (max b b')

@@ -45,12 +45,13 @@ adjacentSym arr (x,y) =
             | x' <- [succ x, x, pred x]
             , y' <- [succ y, y, pred y]
             , (x, y) /= (x', y')
+            , inRange (bounds arr) (x', y') 
             , Just p <- [isSymbolPos arr (x', y')]
             ]
 
 isSymbolPos :: Array (Int, Int) Char -> (Int, Int) -> Maybe (Int, Int)
-isSymbolPos arr ix | inRange (bounds arr) ix && not (isDigit (arr ! ix) || (arr ! ix) == '.' ) = Just ix 
-                   | otherwise                                                                 = Nothing
+isSymbolPos arr ix | not (isDigit (arr ! ix) || (arr ! ix) == '.' ) = Just ix 
+                   | otherwise                                      = Nothing
 
 solve2 :: Array (Int, Int) Char -> Int
 solve2 arr = go $ mapMaybe (numberAtPos arr) $ range (bounds arr)

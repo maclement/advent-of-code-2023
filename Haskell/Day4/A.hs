@@ -18,7 +18,7 @@ data Card = Card  { cid :: Int, res :: [Int], win :: [Int], amount :: Int}
 cardP :: Parser Card
 cardP = Card <$> (string "Card" *> spaces *> (read <$> many1 digit) <* char ':' <* spaces) 
              <*> many1 (read <$> (many1 digit <* spaces))
-             <*> (char '|' *> many1 (read <$> (many1 (oneOf " ") *> many1 digit)))
+             <*> (char '|' *> many1 (read <$> (many1 (char ' ') *> many1 digit)))
              <*> pure 1
 
 solve1 :: [Card] -> Int

@@ -17,11 +17,11 @@ type Input = [Round]
 inputP :: Parser Input
 inputP = roundP `sepBy` char '\n'
 
-data Round = Round { hand :: [Char], bid :: Int, modified :: [Char] }
+data Round = Round { hand :: [Char], bid :: Int}
  deriving Show
 
 roundP :: Parser Round
-roundP = (\h b -> Round h b (sort $ nub h)) <$> many1 alphaNum <*> (spaces *> (read <$> many1 digit))
+roundP = Round <$> many1 alphaNum <*> (spaces *> (read <$> many1 digit))
 
 spaces :: Parser ()
 spaces = many (char ' ') $> ()

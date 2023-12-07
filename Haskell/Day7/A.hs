@@ -18,7 +18,7 @@ type Input = [Round]
 inputP :: Parser Input
 inputP = roundP `sepBy` char '\n'
 
-data Round = Round { hand :: [Char], bid :: Int}
+data Round = Round { hand :: [Char], bid :: Int }
  deriving Show
 
 roundP :: Parser Round

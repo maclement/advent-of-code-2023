@@ -33,4 +33,3 @@ solve2 s m = foldr1 lcm $ map (go (cycle s) 0 m) (filter (('A' ==) . last) (M.ke
 go :: String -> Int -> Map String (String, String) -> String -> Int
 go (x:xs) acc m s | last s == 'Z' = acc
                   | otherwise     = go xs (acc + 1) m (bool fst snd (x == 'R') (m M.! s))
-

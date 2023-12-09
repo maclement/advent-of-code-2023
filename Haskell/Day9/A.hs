@@ -29,7 +29,4 @@ solve1 = sum . map (helper True)
 solve2 = sum . map (helper False)
 
 helper :: Bool -> [Integer] -> Integer
-helper b = foldr (flip (+) . last) 0 . takeWhile (any (/=0)) . iterate diffList . bool reverse id b
-
-diffList :: [Integer] -> [Integer]
-diffList xs = zipWith (-) (tail xs) xs
+helper b = foldr (flip (+) . last) 0 . takeWhile (any (/=0)) . iterate (\xs -> zipWith (-) (tail xs) xs) . bool reverse id b

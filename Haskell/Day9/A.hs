@@ -1,14 +1,12 @@
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Avoid lambda" #-}
 import Text.Parsec ( Parsec, char, string, many1, many, parse, alphaNum, newline, sepBy, digit, (<|>))
 import Data.Functor ( ($>) )
 import Data.Bool ( bool )
 
 main1 :: IO ()
-main1 = readFile "./input.txt"  >>= \s -> either print (print . solve1) (parse inputP "" s)
+main1 = readFile "./input.txt"  >>= either print (print . solve1) . parse inputP ""
 
 main2 :: IO ()
-main2 = readFile "./input.txt"  >>= \s -> either print (print . solve2) (parse inputP "" s)
+main2 = readFile "./input.txt"  >>= either print (print . solve2) . parse inputP ""
 
 spaces :: Parser ()
 spaces = many (char ' ') $> ()

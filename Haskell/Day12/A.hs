@@ -26,6 +26,7 @@ solve1 = sum . map run
 run :: (String, [Int]) -> Int
 run (s, is) = evalState (memorize s is) M.empty
 
+-- TODO: Refactor
 memorize :: String -> [Int] -> State (Map (String, [Int]) Int) Int
 memorize s  [] | '#' `elem` s = return 0
                | otherwise    = return 1
